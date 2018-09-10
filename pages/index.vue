@@ -1,13 +1,11 @@
 <template>
   <div>
-    <app-logo/>
     <post-list :posts="posts" />
     <nuxt-link to="/posts">投稿をもっと見る</nuxt-link>
   </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
 import PostList from '@/components/post-list.vue'
 import axios from 'axios'
 
@@ -21,13 +19,7 @@ export default {
     console.log(this.posts)
   },
   components: {
-    AppLogo,
     PostList,
   }
 }
 </script>
-
-<style>
-
-</style>
-
