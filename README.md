@@ -1,5 +1,9 @@
 # wpnuxt
 
+This is the WordPress for Test with WordPress.
+
+Work with https://github.com/rendoh/wpnuxt.wp.
+
 > Nuxt.js project
 
 ## Build Setup
