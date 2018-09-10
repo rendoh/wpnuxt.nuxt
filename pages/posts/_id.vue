@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container class="article">
     <h1>{{ post.title.rendered }}</h1>
     <div v-html="post.content.rendered"></div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -25,3 +25,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+.article >>> img {
+  max-width: 100%;
+}
+
+</style>
+

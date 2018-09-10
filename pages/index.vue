@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container>
     <post-list :posts="posts" />
-    <nuxt-link to="/posts">投稿をもっと見る</nuxt-link>
-  </div>
+    <v-btn to="/posts" class="link">投稿をもっと見る</v-btn>
+  </v-container>
 </template>
 
 <script>
@@ -14,11 +14,15 @@ export default {
     const response = await axios.get('http://wp-rest-api.localhost/wp-json/wp/v2/posts?per_page=3');
     return { posts: response.data };
   },
-  created() {
-    console.log(this.posts)
-  },
   components: {
     PostList,
   }
 }
 </script>
+
+<style scoped>
+.link {
+  margin: 20px 0 0;
+}
+</style>
+
