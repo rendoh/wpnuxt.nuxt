@@ -15,7 +15,12 @@ export default {
       const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/posts/${id}`);
       return { post: response.data };
     } catch (e) {
-      error({ statusCode: 404, message: 'ページが見つかりません' })
+      if (e.response && e.response.data) {
+        const { data, message } = e.response.data;
+        error({ statusCode: data.status, message })
+      } else {
+        error({ statusCode: 503, message: 'Service Unavailable' })
+      }
     }
   },
 }
