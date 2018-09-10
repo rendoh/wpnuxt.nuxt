@@ -9,10 +9,14 @@
 import axios from 'axios'
 
 export default {
-  async asyncData({ params }) {
+  async asyncData({ params, error }) {
     const { id } = params;
-    const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/posts/${id}`);
-    return { post: response.data };
+    try {
+      const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/posts/${id}`);
+      return { post: response.data };
+    } catch (e) {
+      error({ statusCode: 404, message: 'ページが見つかりません' })
+    }
   },
 }
 </script>
