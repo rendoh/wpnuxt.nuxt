@@ -18,6 +18,10 @@
       </v-card>
     </transition-group>
 
+    <p v-if="commentPage < totalCommentPages" class="text-md-center">
+      <v-btn @click="fetchOldComments">さらに読み込む</v-btn>
+    </p>
+
     <v-dialog
       v-model="dialog"
       width="500"
@@ -63,20 +67,27 @@ async function fetchPost(id) {
   return response.data;
 }
 
-async function fetchComments(id) {
-  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/comments/?post=${id}&per_page=100`);
-  return response.data;
+async function fetchComments(id, page = 1) {
+  const response = await axios.get('http://wp-rest-api.localhost/wp-json/wp/v2/comments/', {
+    params: {
+      post: id,
+      per_page: 5,
+      page,
+    },
+  });
+  const { headers, data } = response;
+  return { totalCommentPages: headers['x-wp-totalpages'], comments: data };
 }
 
 export default {
   async asyncData({ params, error }) {
     const { id } = params;
     try {
-      const [post, comments] = await Promise.all([
+      const [post, commentResponse] = await Promise.all([
         fetchPost(id),
         fetchComments(id),
       ]);
-      return { post, comments };
+      return { post, comments: commentResponse.comments, totalCommentPages: commentResponse.totalCommentPages };
     } catch (e) {
       if (e.response && e.response.data) {
         const { data, message } = e.response.data;
@@ -107,6 +118,8 @@ export default {
           v => /.+@.+/.test(v) || 'メールアドレスの形式が正しくありません'
         ],
       },
+
+      commentPage: 1,
     }
   },
   created() {
@@ -145,7 +158,15 @@ export default {
     },
     clear() {
       this.$refs.form.reset();
-    }
+    },
+    async fetchOldComments() {
+      this.commentPage += 1;
+      const { totalCommentPages, comments } = await fetchComments(this.post.id, this.commentPage);
+      Object.assign(this, {
+        totalCommentPages,
+        comments: [...this.comments, ...comments],
+      });
+    },
   },
   filters: {
     date(value) {
