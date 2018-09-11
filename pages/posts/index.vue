@@ -25,18 +25,14 @@ async function fetchPosts(page) {
 }
 
 export default {
+  watchQuery: ['page'],
+  key: to => to.fullPath,
   async asyncData({ query }) {
     const page = parseInt(query.page || 1);
     return await fetchPosts(page);
   },
   components: {
     PostList,
-  },
-  watch: {
-    async page(value) {
-      const data = await fetchPosts(value);
-      Object.assign(this, data);
-    },
   },
   methods: {
     input(value) {
@@ -47,6 +43,10 @@ export default {
         },
       });
     }
+  },
+  transition(to, from) {
+    if (!from || !from.query.page) return 'page';
+    return +to.query.page < +from.query.page ? 'slide-right' : 'slide-left'
   }
 }
 </script>
@@ -56,5 +56,38 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
+
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: all .3s;
+  transform: translateX(0);
+}
+.slide-right-enter, .slide-right-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter {
+  transform: translateX(-20px);
+}
+
+.slide-right-leave-to {
+  transform: translateX(20px);
+}
+
+.slide-left-enter-active, .slide-left-leave-active {
+  transition: all .3s;
+  transform: translateX(0);
+}
+.slide-left-enter, .slide-left-leave-to {
+  opacity: 0;
+}
+
+.slide-left-enter {
+  transform: translateX(20px);
+}
+
+.slide-left-leave-to {
+  transform: translateX(-20px);
+}
+
 </style>
 
