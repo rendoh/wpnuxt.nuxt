@@ -37,6 +37,7 @@ module.exports = {
     vendor: [
       'axios',
     ],
+    extractCSS: true,
   },
   modules: [
     '@nuxtjs/vuetify',
