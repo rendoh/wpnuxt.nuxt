@@ -64,7 +64,7 @@ async function fetchPost(id) {
 }
 
 async function fetchComments(id) {
-  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/comments/?post=${id}&per_page=99999`);
+  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/comments/?post=${id}&per_page=100`);
   return response.data;
 }
 
