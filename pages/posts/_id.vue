@@ -8,7 +8,7 @@
         コメントを書く
       </v-btn>
     </div>
-    <div class="comments-list">
+    <transition-group name="comment-list" tag="div" class="comments-list">
       <v-card v-for="comment of comments" :key="comment.id">
         <v-card-text>
           <p>{{ comment.author_name }}</p>
@@ -16,7 +16,7 @@
           <div v-html="comment.content.rendered"></div>
         </v-card-text>
       </v-card>
-    </div>
+    </transition-group>
 
     <v-dialog
       v-model="dialog"
@@ -64,7 +64,7 @@ async function fetchPost(id) {
 }
 
 async function fetchComments(id) {
-  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/comments/?post=${id}`);
+  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/comments/?post=${id}&per_page=99999`);
   return response.data;
 }
 
@@ -175,6 +175,18 @@ export default {
 
 .comment-heading-btn {
   margin: 0;
+}
+
+.comment-list-enter-active, .comment-list-leave-active {
+  transition: all .5s;
+}
+
+.comment-list-enter, .comment-list-leave-to {
+  opacity: 0;
+}
+
+.comment-list-move {
+  transition: transform .5s;
 }
 
 </style>
