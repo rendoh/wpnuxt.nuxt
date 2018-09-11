@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <post-list :posts="posts" />
+    <transition name="slide" mode="out-in">
+      <post-list :posts="posts" :key="page" />
+    </transition>
     <div class="pagenation">
       <v-pagination
         v-model="page"
@@ -26,7 +28,7 @@ async function fetchPosts(page) {
 
 export default {
   watchQuery: ['page'],
-  key: to => to.fullPath,
+  // key: to => to.fullPath,
   async asyncData({ query }) {
     const page = parseInt(query.page || 1);
     return await fetchPosts(page);
@@ -44,10 +46,6 @@ export default {
       });
     }
   },
-  transition(to, from) {
-    if (!from || !from.query.page) return 'page';
-    return +to.query.page < +from.query.page ? 'slide-right' : 'slide-left'
-  }
 }
 </script>
 
@@ -57,36 +55,26 @@ export default {
   margin-top: 20px;
 }
 
-.slide-right-enter-active, .slide-right-leave-active {
-  transition: all .3s;
-  transform: translateX(0);
+.slide-enter-active {
+  transition: all .3s ease-out;
 }
-.slide-right-enter, .slide-right-leave-to {
+
+.slide-leave-to {
+  transition: all .3s ease-in;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transform: scale(1);
+}
+
+.slide-enter {
   opacity: 0;
+  transform: scale(0.95);
 }
 
-.slide-right-enter {
-  transform: translateX(-20px);
-}
-
-.slide-right-leave-to {
-  transform: translateX(20px);
-}
-
-.slide-left-enter-active, .slide-left-leave-active {
-  transition: all .3s;
-  transform: translateX(0);
-}
-.slide-left-enter, .slide-left-leave-to {
+.slide-leave-to {
   opacity: 0;
-}
-
-.slide-left-enter {
-  transform: translateX(20px);
-}
-
-.slide-left-leave-to {
-  transform: translateX(-20px);
+  transform: scale(1.05);
 }
 
 </style>

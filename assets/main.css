@@ -1,7 +1,15 @@
 .page-enter-active, .page-leave-active {
-  transition: all .3s;
   transform: translateY(0);
 }
+
+.page-enter-active {
+  transition: all .3s ease-out;
+}
+
+.page-leave-to {
+  transition: all .3s ease-in;
+}
+
 .page-enter, .page-leave-to {
   opacity: 0;
 }
