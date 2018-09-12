@@ -1,7 +1,9 @@
 <template>
   <v-container>
     <post-list :posts="posts" />
-    <v-btn to="/posts" class="link">投稿をもっと見る</v-btn>
+    <p class="text-xs-center">
+      <v-btn to="/posts" class="link">投稿をもっと見る</v-btn>
+    </p>
   </v-container>
 </template>
 
