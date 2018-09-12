@@ -18,7 +18,7 @@
       </v-card>
     </transition-group>
 
-    <p v-if="commentPage < totalCommentPages" class="text-md-center">
+    <p v-if="commentPage < totalCommentPages" class="text-xs-center">
       <v-btn @click="fetchOldComments">さらに読み込む</v-btn>
     </p>
 

@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md class="container">
     <v-layout wrap>
-      <v-flex v-for="post of posts" :key="post.id" xs4 class="flex-item">
+      <v-flex v-for="post of posts" :key="post.id" xs12 sm4 class="flex-item">
         <v-card class="card" ripple :to="`/posts/${post.id}`" hover>
           <v-card-title>
             <h2>{{ post.title.rendered }}</h2>
