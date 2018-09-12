@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="conatiner">
     <post-list :posts="posts" />
     <div class="text-xs-center">
       <v-btn to="/posts" class="link">投稿をもっと見る</v-btn>
@@ -25,6 +25,10 @@ export default {
 <style scoped>
 .link {
   margin: 20px 0 0;
+}
+
+.conatiner {
+  padding-top: 100vh;
 }
 </style>
 

@@ -15,7 +15,8 @@
   "dependencies": {
     "@nuxtjs/vuetify": "^0.4.2",
     "axios": "^0.18.0",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0",
+    "three": "^0.96.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
