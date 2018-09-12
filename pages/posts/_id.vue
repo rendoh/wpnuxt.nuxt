@@ -27,12 +27,12 @@
       width="500"
     >
       <v-card>
-        <v-card-text>
-          <v-form
-            v-model="valid"
-            ref="form"
-            @submit.prevent="postComment"
-          >
+        <v-form
+          v-model="valid"
+          ref="form"
+          @submit.prevent="postComment"
+        >
+          <v-card-text>
             <v-text-field
               v-model="form.author_name"
               :rules="rules.author_name"
@@ -51,9 +51,11 @@
               label="Content"
               required
             ></v-textarea>
+          </v-card-text>
+          <v-card-actions>
             <v-btn type="submit" :disabled="!valid">送信</v-btn>
-          </v-form>
-        </v-card-text>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </v-container>
