@@ -13,7 +13,7 @@ import axios from 'axios'
 
 export default {
   async asyncData() {
-    const response = await axios.get('http://52.69.140.156/wp-json/wp/v2/posts?per_page=3');
+    const response = await axios.get(`${process.env.API_URL}/wp-json/wp/v2/posts?per_page=3`);
     return { posts: response.data };
   },
   components: {

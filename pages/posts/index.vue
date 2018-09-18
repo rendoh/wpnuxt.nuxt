@@ -18,7 +18,7 @@ import PostList from '@/components/post-list.vue'
 import axios from 'axios'
 
 async function fetchPosts(page) {
-  const response = await axios.get(`http://52.69.140.156/wp-json/wp/v2/posts?per_page=12&page=${page}`);
+  const response = await axios.get(`${process.env.API_URL}/wp-json/wp/v2/posts?per_page=12&page=${page}`);
   return {
     posts: response.data,
     totalPages: parseInt(response.headers['x-wp-totalpages']),
