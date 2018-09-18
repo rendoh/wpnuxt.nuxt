@@ -45,5 +45,8 @@ module.exports = {
   css: [
     '@/assets/main.css',
   ],
+  render: {
+    gzip: false,
+  }
 }
 
