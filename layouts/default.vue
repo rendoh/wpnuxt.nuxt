@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <three-canvas class="canvas" />
     <v-toolbar color="primary" dark fixed>
       <v-toolbar-title>
         <nuxt-link class="home" to="/">WPNuxt</nuxt-link>
@@ -11,17 +10,6 @@
     </div>
   </v-app>
 </template>
-
-<script>
-import ThreeCanvas from '@/components/three-canvas'
-
-export default {
-  components: {
-    ThreeCanvas,
-  }
-}
-</script>
-
 
 <style scoped>
 .content {

@@ -65,12 +65,12 @@
 import axios from 'axios'
 
 async function fetchPost(id) {
-  const response = await axios.get(`http://wp-rest-api.localhost/wp-json/wp/v2/posts/${id}`);
+  const response = await axios.get(`http://52.69.140.156/wp-json/wp/v2/posts/${id}`);
   return response.data;
 }
 
 async function fetchComments(id, page = 1) {
-  const response = await axios.get('http://wp-rest-api.localhost/wp-json/wp/v2/comments/', {
+  const response = await axios.get('http://52.69.140.156/wp-json/wp/v2/comments/', {
     params: {
       post: id,
       per_page: 5,
@@ -139,7 +139,7 @@ export default {
         author_name,
         author_email,
       } = this.form;
-      const response = await axios.post('http://wp-rest-api.localhost/wp-json/wp/v2/comments/', {
+      const response = await axios.post('http://52.69.140.156/wp-json/wp/v2/comments/', {
         post: this.$route.params.id,
         content,
         author_name,
