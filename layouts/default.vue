@@ -6,10 +6,22 @@
       </v-toolbar-title>
     </v-toolbar>
     <div class="content">
+      <background />
       <nuxt />
     </div>
   </v-app>
 </template>
+
+<script>
+import Background from '@/components/background.vue'
+
+export default {
+  components: {
+    Background,
+  }
+}
+</script>
+
 
 <style scoped>
 .content {
