@@ -23,6 +23,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding-top: 80vh;
+}
 .link {
   margin: 20px 0 0;
 }
