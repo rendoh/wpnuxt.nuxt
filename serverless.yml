@@ -1,1 +1,47 @@
-# TODO: Create this
+service: nuxt
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ap-northeast-1
+
+plugins:
+  - serverless-offline
+
+package:
+  include:
+    - .nuxt/**
+    - server.js
+  exclude:
+    - .editorconfig
+    - .env
+    - .env.example
+    - .eslintrc.js
+    - .git/**
+    - .gitignore
+    - assets/**
+    - components/**
+    - layouts/**
+    - middleware/**
+    - node_modules
+    - nuxt.config.js/**
+    - pages/**
+    - plugins/**
+    - README.md
+    - server.js
+    - static/**
+    - store/**
+    - yarn.lock
+
+functions:
+  myapp:
+    handler: server.render
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+      - http:
+          path: '{proxy+}'
+          method: 'get'
+          private: false
