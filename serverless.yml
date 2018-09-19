@@ -23,8 +23,6 @@ package:
     - components/**
     - layouts/**
     - middleware/**
-    - node_modules
-    - nuxt.config.js/**
     - pages/**
     - plugins/**
     - README.md
