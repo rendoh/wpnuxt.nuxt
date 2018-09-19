@@ -10,7 +10,9 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "sync": "aws s3 sync ./.nuxt/dist/ s3://mynuxt-client/static/ --acl public-read --cache-control \"public, max-age=31557600\" --exclude \"server-bundle.json\"",
+    "precommit": "npm run lint",
+    "deploy": "yarn sync && sls deploy -v"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.1.1",
