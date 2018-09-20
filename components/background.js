@@ -19,7 +19,7 @@ function createParticles() {
     color: 0x00ff00,
   });
 
-  const range = 750;
+  const range = 1000;
   for (let i = 0; i < 30000; i++) {
     const particle = new Vector3(
       ((Math.random() + Math.random()) / 2) * range - range / 2,
@@ -73,6 +73,17 @@ function init(el) {
   const renderer = new WebGLRenderer();
   renderer.setClearColor(new Color(0xEEEEEE));
   renderer.setSize(window.innerWidth, window.innerHeight);
+
+  function onResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+
+  window.addEventListener('resize', onResize);
 
   const particles = createParticles();
   scene.add(particles);
