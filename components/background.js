@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import {
   Scene,
   PerspectiveCamera,
@@ -7,6 +8,10 @@ import {
   PointsMaterial,
   Vector3,
   Points,
+  PlaneGeometry,
+  MeshBasicMaterial,
+  DoubleSide,
+  Mesh,
 } from 'three';
 
 function createParticles() {
@@ -83,10 +88,20 @@ function init(el) {
     camera.updateProjectionMatrix();
   }
 
-  window.addEventListener('resize', onResize);
+  window.addEventListener('resize', debounce(onResize, 300));
 
+  // particle
   const particles = createParticles();
   scene.add(particles);
+
+  const planeGeometry = new PlaneGeometry(15, 20, 1);
+  const planeMaterial = new MeshBasicMaterial({
+    color: 0x0000ff,
+    side: DoubleSide,
+  });
+  const plane = new Mesh(planeGeometry, planeMaterial);
+  plane.position.z = 865;
+  scene.add(plane);
 
   el.appendChild(renderer.domElement);
 
@@ -105,6 +120,10 @@ function init(el) {
     particles.rotation.x += 0.01 * mousePosition.y;
     particles.rotation.y += 0.01 * mousePosition.x;
     particles.rotation.z += 0.003;
+
+    plane.rotation.x += 0.001;
+    plane.rotation.y += 0.01;
+    plane.rotation.z += 0.001;
 
     renderer.render(scene, camera);
     requestAnimationFrame(render);
