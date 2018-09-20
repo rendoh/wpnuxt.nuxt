@@ -9,15 +9,21 @@ import {
   Vector3,
   Points,
 } from 'three';
+import TWEEN from '@tweenjs/tween.js';
+
+/**
+ * ! このコンポーネントはシングルトンであるべきです
+ * ! そうでなければunmountで叩くdestroyを実装してください
+ */
 
 function createParticles() {
   const geometry = new Geometry();
   const material = new PointsMaterial({
     size: 5,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.4,
     // vertexColors
-    color: 0x00ff00,
+    color: 0x1976d2,
   });
 
   const range = 1000;
@@ -92,7 +98,27 @@ function init(el) {
 
   el.appendChild(renderer.domElement);
 
+  const tweenState = {
+    step: 0,
+  };
+  function updateByTween() {
+    const { step } = tweenState;
+    camera.position.z = 900 - (step * 350);
+    particles.material.opacity = 0.4 - (step * 0.3);
+  }
+
+  const zoomOut = new TWEEN.Tween(tweenState)
+    .to({ step: 1 }, 1000)
+    .easing(TWEEN.Easing.Cubic.InOut)
+    .onUpdate(updateByTween);
+
+  const zoomReset = new TWEEN.Tween(tweenState)
+    .to({ step: 0 }, 1000)
+    .easing(TWEEN.Easing.Cubic.InOut)
+    .onUpdate(updateByTween);
+
   function render() {
+    TWEEN.update();
     particles.geometry.vertices.forEach(v => {
       v.step.x += v.velocity.x;
       v.step.y += v.velocity.y;
@@ -112,10 +138,49 @@ function init(el) {
     requestAnimationFrame(render);
   }
   render();
+
+  return {
+    methods: {
+      zoomOut,
+      zoomReset,
+    }
+  }
 }
 
 export default {
+  data() {
+    return {
+      zoomOut: null,
+      zoomReset: null,
+    }
+  },
+  methods: {
+    _zoomOut() {
+      console.log('out')
+      if (this.zoomOut) {
+        this.zoomOut.start();
+      }
+    },
+    _zoomReset() {
+      console.log('reset')
+      if (this.zoomReset) {
+        this.zoomReset.start();
+      }
+    },
+  },
   mounted() {
-    init(this.$refs.el);
+    const { methods } = init(this.$refs.el);
+    Object.assign(this, methods);
+
+    if (this.$route.name === 'posts-id') this._zoomOut();
+  },
+  watch: {
+    $route(newRoute, oldRoute) {
+      if (newRoute.name === 'posts-id') {
+        this._zoomOut()
+      } else {
+        this._zoomReset()
+      }
+    }
   },
 }

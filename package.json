@@ -17,6 +17,7 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.1.1",
     "@nuxtjs/vuetify": "^0.4.2",
+    "@tweenjs/tween.js": "^17.2.0",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",

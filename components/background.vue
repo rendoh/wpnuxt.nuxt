@@ -12,7 +12,7 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background: #f1f1f1;
+  background: #eee;
 }
 </style>
 
