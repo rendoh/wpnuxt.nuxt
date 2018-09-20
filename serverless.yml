@@ -9,10 +9,8 @@ plugins:
   - serverless-offline
 
 package:
-  include:
-    - .nuxt/**
-    - server.js
   exclude:
+    - .nuxt/**
     - .editorconfig
     - .env
     - .env.example
@@ -30,6 +28,9 @@ package:
     - static/**
     - store/**
     - yarn.lock
+  include:
+    - .nuxt/dist/**
+    - server.js
 
 functions:
   myapp:
