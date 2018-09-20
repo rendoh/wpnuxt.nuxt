@@ -38,6 +38,7 @@ module.exports = {
       'axios',
     ],
     extractCSS: true,
+    publicPath: 'https://d31ay4966vt32d.cloudfront.net/static/',
   },
   modules: [
     '@nuxtjs/vuetify',
