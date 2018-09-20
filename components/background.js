@@ -12,9 +12,9 @@ import {
 function createParticles() {
   const geometry = new Geometry();
   const material = new PointsMaterial({
-    size: 4,
+    size: 5,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.5,
     // vertexColors
     color: 0x00ff00,
   });
