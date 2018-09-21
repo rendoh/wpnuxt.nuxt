@@ -39,8 +39,8 @@ functions:
       - http:
           path: /
           method: get
-          cors: true
+          private: true
       - http:
           path: '{proxy+}'
           method: 'get'
-          private: false
+          private: true
